@@ -9,6 +9,7 @@ const Traffic_light = () => {
     return `traffic-light-item-${colorSet}` + (color === colorSet ? " active" : "")
   
   }
+
   const getNextColor = (currentColor: string) => {
     switch (currentColor) {
       case 'red':
@@ -21,6 +22,7 @@ const Traffic_light = () => {
         return 'red'
     }
   }
+
   const LIGHT_TIMES: { [key: string]: number }  = {
     red: 20000,
     yellow: 5000,
@@ -32,8 +34,6 @@ const Traffic_light = () => {
   }
 
   useEffect(() => {
-    
-
     if(timer > 0) {
       const timerId = setTimeout(decreaseTimer, 1000)
       return () => clearTimeout(timerId)
