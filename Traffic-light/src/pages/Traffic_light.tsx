@@ -9,23 +9,38 @@ const Traffic_light = () => {
     return `traffic-light-item-${colorSet}` + (color === colorSet ? " active" : "")
   
   }
+  const getNextColor = (currentColor: string) => {
+    switch (currentColor) {
+      case 'red':
+        return 'yellow'
+      case 'yellow':
+        return 'green'
+      case 'green':
+        return 'red'
+      default:
+        return 'red'
+    }
+  }
+  const LIGHT_TIMES: { [key: string]: number }  = {
+    red: 20000,
+    yellow: 5000,
+    green: 15000
+  }
+
+  const decreaseTimer = () => {
+    setTimer((prevTimer) => prevTimer - 1000)
+  }
 
   useEffect(() => {
+    
+
     if(timer > 0) {
-      setTimeout(() => {
-        setTimer(timer - 1000)
-      }, 1000)
+      const timerId = setTimeout(decreaseTimer, 1000)
+      return () => clearTimeout(timerId)
     } else {
-      if(color === "red"){
-        setTimer(5000)
-        setColor("yellow")
-      } else if (color === "yellow") {
-        setTimer(15000)
-        setColor("green")
-      } else {
-        setTimer(20000)
-        setColor("red")
-      }
+      const nextColor = getNextColor(color)
+      setColor(nextColor)
+      setTimer(LIGHT_TIMES[nextColor])
     }
   }, [color, timer])
 
@@ -33,27 +48,15 @@ const Traffic_light = () => {
     <div className="traffic-light-container">
       <div className={`traffic-light`}>
         <div className="traffic-light-inner">
-        <div className={getLightChangeClass('red')}>
-            {color === 'red' && (
-              <div className="traffic-light-item-timer">
-                {Math.floor((timer as number) / 1000)}s
-              </div>
-            )}
-          </div>
-          <div className={getLightChangeClass('yellow')}>
-            {color === 'yellow' && (
-              <div className="traffic-light-item-timer">
-                {Math.floor((timer as number) / 1000)}s
-              </div>
-            )}
-          </div>
-          <div className={getLightChangeClass('green')}>
-            {color === 'green' && (
-              <div className="traffic-light-item-timer">
-                {Math.floor((timer as number) / 1000)}s
-              </div>
-            )}
-          </div>
+          {Object.keys(LIGHT_TIMES).map((lightColor) => (
+            <div className={getLightChangeClass(lightColor)} key={lightColor}>
+              {color === lightColor && (
+                <div className="traffic-light-item-timer">
+                  {Math.floor(timer / 1000)}s
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
