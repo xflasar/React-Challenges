@@ -1,0 +1,16 @@
+.Table {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  background-color: black;
+  gap: 5px;
+  min-width: 400px;
+  width: calc(100vw - 4rem);
+  height: 70vh;
+  margin-top: 1rem;
+}
+
+.Table.error input{
+  background-color: red;
+}
