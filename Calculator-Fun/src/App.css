@@ -1,0 +1,35 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.theme-button-holder {
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  width: 7vw;
+  height: 5vw;
+  border-radius: 25%;
+  box-shadow: 0 2px 8px rgb(0, 0, 0);
+}
+
+.theme-button-holder.dark-mode {
+  background-color: rgb(53, 53, 53);
+}
+
+.theme-button-holder.light-mode {
+  background-color: white;
+}
+
+.theme-button-holder button {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.theme-button-holder button img {
+  width: 100%;
+  height: 100%;
+}
